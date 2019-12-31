@@ -1,7 +1,7 @@
 'use strict';
 const { getPage, parsePage, db } = require('./utils');
 
-module.exports.scrape = async event => {
+module.exports.scrape = (event, context, callback) => {
   const details = event; // avoid changing variable names on the flight for confusion sake
   //  fetch the page 
   getPage(details)
@@ -11,7 +11,7 @@ module.exports.scrape = async event => {
   .then(stars => db(stars, details))
   
   .then(()=>{
-    return {
+    callback(null, {
       statusCode: 200,
       body: JSON.stringify(
         {
@@ -21,15 +21,9 @@ module.exports.scrape = async event => {
         null,
         2
       ),
-    };
+    });
   })
   .catch(error => {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({
-        message: 'Something went horribly wrong',
-        error: error
-      })
-    }
+    cb(new Error(`Error scraping: ${JSON.stringify(error)}`));
   });
 };
