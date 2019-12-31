@@ -1,10 +1,8 @@
 const request = require('request-promise');
 
-module.exports = businessName => {
-    // construct business url 
-    //  https://www.yelp.com/biz/{businessName}
-
-    const url = `https://www.yelp.com/biz/${businessName}`;
+module.exports = details => {
+    const { user, repository } = details;
+    const url = `https://www.github.com/${user}/${repository}`;
     return request({
         method: 'GET',
         url: url
