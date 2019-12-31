@@ -1,13 +1,15 @@
 'use strict';
+const { getPage, parsePage, db } = require('./utils');
 
-module.exports.hello = async event => {
+module.exports.scrape = async event => {
 
   //  fetch the page 
-
+  getPage(event)
+    .then(page => console.log(page));
   //  parse the page 
 
   //  save ratings to db
-  
+
   return {
     statusCode: 200,
     body: JSON.stringify(
