@@ -7,7 +7,7 @@ module.exports.scrape = async event => {
   //  parse the page   
   .then(page => parsePage(page))
   //  save ratings to db
-  .then(yelpData => db(stars));
+  .then(stars => db(stars));
   // return {
   //   statusCode: 200,
   //   body: JSON.stringify(
